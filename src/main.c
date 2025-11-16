@@ -1,13 +1,14 @@
 #include <stdio.h>
 
-#include "cpuid_util.h"
+#include "../include/cpuid_util.h"
 
 #define SUPPORTS_CAT_I(x, y) x##y
 #define SUPPORTS_CAT(x, y) SUPPORTS_CAT_I(x, y)
-#define SUPPORTS(x) printf("supports %s: %s\n", #x, SUPPORTS_CAT(cpuid_check_, x)() ? "yes" : "no");
+#define SUPPORTS(x) printf(" - supports %s: %s\n", #x, SUPPORTS_CAT(cpuid_check_, x)() ? "yes" : "no");
 
 int main()
 {
+	printf("CPUID Support Example:\n");
     SUPPORTS(sse);
     SUPPORTS(sse2);
     SUPPORTS(sse3);
