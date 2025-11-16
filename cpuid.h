@@ -27,16 +27,16 @@
 #ifndef CPUID_U32_TYPE
 	#define CPUID_U32_TYPE unsigned int
 #endif
-	
+
 typedef CPUID_U32_TYPE cpuid_u32_t;
 
-typedef union cpuid_t {
-	uint32_t a, b, c, d;
-	uint32_t eax, ebx, ecx, edx;
-	uint32_t regs[4];
-} cpuid_t;
+typedef union cpuid_reg_t {
+	cpuid_u32_t a, b, c, d;
+	cpuid_u32_t eax, ebx, ecx, edx;
+	cpuid_u32_t regs[4];
+} cpuid_reg_t;
 
-static inline void cpuid_call(uint32_t leaf, uint32_t subleaf, cpuid_t *registers)
+static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *registers)
 {
 #if defined(CPUID_VERSION_MSVC)
 	__cpuidex(regs->regs, leaf, subleaf);
