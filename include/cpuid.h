@@ -1,6 +1,18 @@
 #ifndef CPUID_H
 #define CPUID_H
 
+/* C++ support */
+#ifdef __cplusplus
+	#define CPUID_EXTERN_C_BEGIN extern "C" {
+	#define CPUID_EXTERN_C_END }
+	#define CPUID_NOEXCEPT noexcept
+#else
+	#define CPUID_EXTERN_C_BEGIN
+	#define CPUID_EXTERN_C_END
+	#define CPUID_NOEXCEPT
+#endif
+#define CPUID_LINKAGE static inline
+
 /* MSVC support */
 #if defined(_MSC_VER) && (defined(_WIN32) || defined(WIN32) || defined(_WIN64) || defined(WIN64))
 	#define CPUID_VERSION_MSVC
@@ -47,7 +59,9 @@ typedef struct cpuid_reg_t {
 #define CPUID_REG_IDX_ECX 2
 #define CPUID_REG_IDX_EDX 3
 
-static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *regs)
+CPUID_EXTERN_C_BEGIN
+
+CPUID_LINKAGE void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *regs) CPUID_NOEXCEPT
 {
 #if defined(CPUID_VERSION_MSVC)
 	__cpuidex(regs->regs, leaf, subleaf);
@@ -61,5 +75,7 @@ static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t
 	#error "Unsupported compiler: no CPUID intrinsic or inline assembly available or known to the implementation."
 #endif
 }
+
+CPUID_EXTERN_C_END
 
 #endif /* CPUID_H */
