@@ -36,6 +36,11 @@ typedef union cpuid_reg_t {
 	cpuid_u32_t regs[4];
 } cpuid_reg_t;
 
+#define CPUID_REG_IDX_EAX 0
+#define CPUID_REG_IDX_EBX 1
+#define CPUID_REG_IDX_ECX 2
+#define CPUID_REG_IDX_EDX 3
+
 static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *registers)
 {
 #if defined(CPUID_VERSION_MSVC)
