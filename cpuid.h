@@ -30,10 +30,16 @@
 
 typedef CPUID_U32_TYPE cpuid_u32_t;
 
-typedef union cpuid_reg_t {
-	cpuid_u32_t a, b, c, d;
-	cpuid_u32_t eax, ebx, ecx, edx;
-	cpuid_u32_t regs[4];
+typedef struct cpuid_reg_t {
+	union {
+		cpuid_u32_t regs[4];
+		struct {
+			cpuid_u32_t eax, ebx, ecx, edx;
+		};
+		struct {
+			cpuid_u32_t a, b, c, d;
+		};
+	};
 } cpuid_reg_t;
 
 #define CPUID_REG_IDX_EAX 0
@@ -41,14 +47,14 @@ typedef union cpuid_reg_t {
 #define CPUID_REG_IDX_ECX 2
 #define CPUID_REG_IDX_EDX 3
 
-static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *registers)
+static inline void cpuid_call(cpuid_u32_t leaf, cpuid_u32_t subleaf, cpuid_reg_t *regs)
 {
 #if defined(CPUID_VERSION_MSVC)
 	__cpuidex(regs->regs, leaf, subleaf);
 #elif defined(CPUID_VERSION_GCC) || defined(CPUID_VERSION_LLVM)
 	__asm__ volatile(
 		"cpuid"
-		: "=a"(regs->eax), "=b"(regs->ebx), "=c"(regs->ecx), "=d"(regs->edx)
+		: "=a"(regs->regs[0]), "=b"(regs->regs[1]), "=c"(regs->regs[2]), "=d"(regs->regs[3])
 		: "a"(leaf), "c"(subleaf)
 	);
 #else
