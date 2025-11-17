@@ -15,6 +15,7 @@ int main()
 	printf("CPUID: CPU Info:\n");
 	printf(" - Max leaf value for CPUID: %d\n", maxLeaf);
 	printf(" - CPU Manufacturer ID str : %s\n", cpuStr);
+	printf(" - Brand Info Available: %s\n", hasBrandInfo ? "yes" : "no");
 	if(hasBrandInfo) {
 		printf(" - CPUD Brand ID str : %s\n", brandStr);
 	}
