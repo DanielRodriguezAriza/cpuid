@@ -9,10 +9,15 @@
 int main()
 {
 	cpuid_char_t cpuStr[CPUID_STRLEN_BUF_MANUFACTURER];
+	cpuid_char_t brandStr[CPUID_STRLEN_BUF_BRAND];
 	int maxLeaf = cpuid_check_info(cpuStr);
+	int hasBrandInfo = cpuid_brand_string(brandStr);
 	printf("CPUID: CPU Info:\n");
 	printf(" - Max leaf value for CPUID: %d\n", maxLeaf);
 	printf(" - CPU Manufacturer ID str : %s\n", cpuStr);
+	if(hasBrandInfo) {
+		printf(" - CPUD Brand ID str : %s\n", brandStr);
+	}
 	printf("\n");
 	
 	printf("CPUID: Supported features:\n");
