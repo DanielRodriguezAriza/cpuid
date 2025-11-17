@@ -29,9 +29,41 @@ int cpuid_check_info(cpuid_char_t *buf) CPUID_NOEXCEPT
 	return x.eax;
 }
 
-void cpuid_brand_string(cpuid_str_t *buf) CPUID_NOEXCEPT
+// Returns true on success and false on failure.
+// Failure happens when the CPU does not have this feature.
+// Think of the return value as a "has brand string feature" flag.
+int cpuid_brand_string(cpuid_char_t *buf) CPUID_NOEXCEPT
 {
-	// TODO : Implement
+	cpuid_reg_t x, y, z;
+	
+	// Check if the feature is present on the CPU
+	cpuid_call(0x80000000, 0, &x);
+	if(x.eax < 0x80000004)
+		return 0;
+	
+	// Store all of the bytes from the CPU brand string
+	cpuid_call(0x80000002, 0, &x);
+	cpuid_call(0x80000003, 0, &y);
+	cpuid_call(0x80000004, 0, &z);
+	
+	// Store the data into the buf string
+	// NOTE : Again, this would be easier with memcpy, but I don't want to force include string.h yet,
+	// so I'll think of adding some optional flag for that later on or just including it and calling it a day...
+	buf[CPUID_STRLEN_BUF_BRAND - 1] = 0;
+	*(((cpuid_u32_t*)(buf)) + 0) = x.eax;
+	*(((cpuid_u32_t*)(buf)) + 1) = x.ebx;
+	*(((cpuid_u32_t*)(buf)) + 2) = x.ecx;
+	*(((cpuid_u32_t*)(buf)) + 3) = x.edx;
+	*(((cpuid_u32_t*)(buf)) + 4) = y.eax;
+	*(((cpuid_u32_t*)(buf)) + 5) = y.ebx;
+	*(((cpuid_u32_t*)(buf)) + 6) = y.ecx;
+	*(((cpuid_u32_t*)(buf)) + 7) = y.edx;
+	*(((cpuid_u32_t*)(buf)) + 8) = z.eax;
+	*(((cpuid_u32_t*)(buf)) + 9) = z.ebx;
+	*(((cpuid_u32_t*)(buf)) + 10) = z.ecx;
+	*(((cpuid_u32_t*)(buf)) + 11) = z.edx;
+	
+	return 1;
 }
 
 int cpuid_check_fpu         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 0); } // On board x87 FPU
