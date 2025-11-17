@@ -8,11 +8,11 @@
 
 int main()
 {
-	cpuid_str_t cpuStr;
-	int maxLeaf = cpuid_check_info(&cpuStr);
+	cpuid_char_t cpuStr[CPUID_STRLEN_BUF_MANUFACTURER];
+	int maxLeaf = cpuid_check_info(cpuStr);
 	printf("CPUID: CPU Info:\n");
 	printf(" - Max leaf value for CPUID: %d\n", maxLeaf);
-	printf(" - CPU Manufacturer ID str : %s\n", cpuStr.str);
+	printf(" - CPU Manufacturer ID str : %s\n", cpuStr);
 	printf("\n");
 	
 	printf("CPUID: Supported features:\n");

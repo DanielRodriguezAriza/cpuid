@@ -47,12 +47,12 @@ typedef struct cpuid_str_t {
 } cpuid_str_t;
 
 // String lengths in raw
-#define CPUID_STRLEN_MANUFACTURER (3 * 4)
-#define CPUID_STRLEN_BRAND (4 * 4)
+#define CPUID_STRLEN_RAW_MANUFACTURER (3 * 4)
+#define CPUID_STRLEN_RAW_BRAND (4 * 4)
 
 // String lengths with null terminator already accounted for
-#define CPUID_STRLENZ_MANUFACTURER (CPUID_STRLEN_MANUFACTURER + 1)
-#define CPUID_STRLENZ_BRAND (CPUID_STRLEN_BRAND + 1)
+#define CPUID_STRLEN_BUF_MANUFACTURER (CPUID_STRLEN_RAW_MANUFACTURER + 1)
+#define CPUID_STRLEN_BUF_BRAND (CPUID_STRLEN_RAW_BRAND + 1)
 
 typedef unsigned char cpuid_char_t;
 
