@@ -42,6 +42,10 @@
 
 typedef CPUID_U32_TYPE cpuid_u32_t;
 
+typedef struct cpuid_str_t {
+	unsigned char str[13];
+} cpuid_str_t;
+
 typedef struct cpuid_reg_t {
 	union {
 		cpuid_u32_t regs[4];
