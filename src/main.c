@@ -8,7 +8,14 @@
 
 int main()
 {
-	printf("CPUID Support Example:\n");
+	cpuid_str_t cpuStr;
+	int maxLeaf = cpuid_check_info(&cpuStr);
+	printf("CPUID: CPU Info:\n");
+	printf(" - Max leaf value for CPUID: %d\n", maxLeaf);
+	printf(" - CPU Manufacturer ID str : %s\n", cpuStr.str);
+	printf("\n");
+	
+	printf("CPUID: Supported features:\n");
     SUPPORTS(sse);
     SUPPORTS(sse2);
     SUPPORTS(sse3);
@@ -18,4 +25,5 @@ int main()
     SUPPORTS(avx512_vbmi);
     SUPPORTS(sha512);
     SUPPORTS(mawau);
+	printf("\n");
 }
