@@ -29,6 +29,10 @@ int cpuid_check_info(cpuid_str_t *buf) CPUID_NOEXCEPT
 	return x.eax;
 }
 
+int cpuid_check_fpu         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 0); } // On board x87 FPU
+int cpuid_check_vme         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 1); }
+int cpuid_check_de          (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 2); }
+int cpuid_check_pse         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 3); } // Page size extension with 4MB pages.
 int cpuid_check_sse         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 25); }
 int cpuid_check_sse2        (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 26); }
 int cpuid_check_sse3        (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 2, 0); }

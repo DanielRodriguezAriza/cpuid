@@ -4,7 +4,7 @@
 
 #define SUPPORTS_CAT_I(x, y) x##y
 #define SUPPORTS_CAT(x, y) SUPPORTS_CAT_I(x, y)
-#define SUPPORTS(x) printf(" - supports %s: %s\n", #x, SUPPORTS_CAT(cpuid_check_, x)() ? "yes" : "no");
+#define SUPPORTS(x) printf(" - supports %12s: %s\n", #x, SUPPORTS_CAT(cpuid_check_, x)() ? "yes" : "no");
 
 int main()
 {
@@ -16,7 +16,11 @@ int main()
 	printf("\n");
 	
 	printf("CPUID: Supported features:\n");
-    SUPPORTS(sse);
+    SUPPORTS(fpu);
+	SUPPORTS(vme);
+	SUPPORTS(de);
+	SUPPORTS(pse);
+	SUPPORTS(sse);
     SUPPORTS(sse2);
     SUPPORTS(sse3);
     SUPPORTS(bmi2);
