@@ -29,6 +29,11 @@ int cpuid_check_info(cpuid_str_t *buf) CPUID_NOEXCEPT
 	return x.eax;
 }
 
+void cpuid_brand_string(cpuid_str_t *buf) CPUID_NOEXCEPT
+{
+	// TODO : Implement
+}
+
 int cpuid_check_fpu         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 0); } // On board x87 FPU
 int cpuid_check_vme         (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 1); }
 int cpuid_check_de          (void) CPUID_NOEXCEPT { return cpuid_check(1, 0, 3, 2); }
